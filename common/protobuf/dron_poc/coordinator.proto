@@ -1,0 +1,11 @@
+syntax = "proto3";
+package dron_poc;
+
+import "dron_poc/common.proto";
+
+option go_package = "dron-proto/";
+
+
+service CoordinatorService {
+
+}
