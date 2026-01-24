@@ -24,13 +24,36 @@ var File_dron_poc_coordinator_proto protoreflect.FileDescriptor
 
 const file_dron_poc_coordinator_proto_rawDesc = "" +
 	"\n" +
-	"\x1adron_poc/coordinator.proto\x12\bdron_poc\x1a\x15dron_poc/common.proto2\x14\n" +
-	"\x12CoordinatorServiceB\rZ\vdron-proto/b\x06proto3"
+	"\x1adron_poc/coordinator.proto\x12\bdron_poc\x1a\x15dron_poc/common.proto2\xc3\x02\n" +
+	"\x12CoordinatorService\x12I\n" +
+	"\n" +
+	"CreateTask\x12\x1b.dron_poc.CreateTaskRequest\x1a\x1c.dron_poc.CreateTaskResponse\"\x00\x12U\n" +
+	"\x0eRegisterWorker\x12\x1f.dron_poc.RegisterWorkerRequest\x1a .dron_poc.RegisterWorkerResponse\"\x00\x12@\n" +
+	"\aGetTask\x12\x18.dron_poc.GetTaskRequest\x1a\x19.dron_poc.GetTaskResponse\"\x00\x12I\n" +
+	"\n" +
+	"FinishTask\x12\x1b.dron_poc.FinishTaskRequest\x1a\x1c.dron_poc.FinishTaskResponse\"\x00B\rZ\vdron-proto/b\x06proto3"
 
-var file_dron_poc_coordinator_proto_goTypes = []any{}
+var file_dron_poc_coordinator_proto_goTypes = []any{
+	(*CreateTaskRequest)(nil),      // 0: dron_poc.CreateTaskRequest
+	(*RegisterWorkerRequest)(nil),  // 1: dron_poc.RegisterWorkerRequest
+	(*GetTaskRequest)(nil),         // 2: dron_poc.GetTaskRequest
+	(*FinishTaskRequest)(nil),      // 3: dron_poc.FinishTaskRequest
+	(*CreateTaskResponse)(nil),     // 4: dron_poc.CreateTaskResponse
+	(*RegisterWorkerResponse)(nil), // 5: dron_poc.RegisterWorkerResponse
+	(*GetTaskResponse)(nil),        // 6: dron_poc.GetTaskResponse
+	(*FinishTaskResponse)(nil),     // 7: dron_poc.FinishTaskResponse
+}
 var file_dron_poc_coordinator_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
+	0, // 0: dron_poc.CoordinatorService.CreateTask:input_type -> dron_poc.CreateTaskRequest
+	1, // 1: dron_poc.CoordinatorService.RegisterWorker:input_type -> dron_poc.RegisterWorkerRequest
+	2, // 2: dron_poc.CoordinatorService.GetTask:input_type -> dron_poc.GetTaskRequest
+	3, // 3: dron_poc.CoordinatorService.FinishTask:input_type -> dron_poc.FinishTaskRequest
+	4, // 4: dron_poc.CoordinatorService.CreateTask:output_type -> dron_poc.CreateTaskResponse
+	5, // 5: dron_poc.CoordinatorService.RegisterWorker:output_type -> dron_poc.RegisterWorkerResponse
+	6, // 6: dron_poc.CoordinatorService.GetTask:output_type -> dron_poc.GetTaskResponse
+	7, // 7: dron_poc.CoordinatorService.FinishTask:output_type -> dron_poc.FinishTaskResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name

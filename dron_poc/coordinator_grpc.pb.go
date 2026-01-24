@@ -7,7 +7,10 @@
 package dron_proto
 
 import (
+	context "context"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -15,10 +18,21 @@ import (
 // Requires gRPC-Go v1.62.0 or later.
 const _ = grpc.SupportPackageIsVersion8
 
+const (
+	CoordinatorService_CreateTask_FullMethodName     = "/dron_poc.CoordinatorService/CreateTask"
+	CoordinatorService_RegisterWorker_FullMethodName = "/dron_poc.CoordinatorService/RegisterWorker"
+	CoordinatorService_GetTask_FullMethodName        = "/dron_poc.CoordinatorService/GetTask"
+	CoordinatorService_FinishTask_FullMethodName     = "/dron_poc.CoordinatorService/FinishTask"
+)
+
 // CoordinatorServiceClient is the client API for CoordinatorService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CoordinatorServiceClient interface {
+	CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*CreateTaskResponse, error)
+	RegisterWorker(ctx context.Context, in *RegisterWorkerRequest, opts ...grpc.CallOption) (*RegisterWorkerResponse, error)
+	GetTask(ctx context.Context, in *GetTaskRequest, opts ...grpc.CallOption) (*GetTaskResponse, error)
+	FinishTask(ctx context.Context, in *FinishTaskRequest, opts ...grpc.CallOption) (*FinishTaskResponse, error)
 }
 
 type coordinatorServiceClient struct {
@@ -29,10 +43,54 @@ func NewCoordinatorServiceClient(cc grpc.ClientConnInterface) CoordinatorService
 	return &coordinatorServiceClient{cc}
 }
 
+func (c *coordinatorServiceClient) CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*CreateTaskResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateTaskResponse)
+	err := c.cc.Invoke(ctx, CoordinatorService_CreateTask_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coordinatorServiceClient) RegisterWorker(ctx context.Context, in *RegisterWorkerRequest, opts ...grpc.CallOption) (*RegisterWorkerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RegisterWorkerResponse)
+	err := c.cc.Invoke(ctx, CoordinatorService_RegisterWorker_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coordinatorServiceClient) GetTask(ctx context.Context, in *GetTaskRequest, opts ...grpc.CallOption) (*GetTaskResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTaskResponse)
+	err := c.cc.Invoke(ctx, CoordinatorService_GetTask_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coordinatorServiceClient) FinishTask(ctx context.Context, in *FinishTaskRequest, opts ...grpc.CallOption) (*FinishTaskResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FinishTaskResponse)
+	err := c.cc.Invoke(ctx, CoordinatorService_FinishTask_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoordinatorServiceServer is the server API for CoordinatorService service.
 // All implementations must embed UnimplementedCoordinatorServiceServer
 // for forward compatibility
 type CoordinatorServiceServer interface {
+	CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskResponse, error)
+	RegisterWorker(context.Context, *RegisterWorkerRequest) (*RegisterWorkerResponse, error)
+	GetTask(context.Context, *GetTaskRequest) (*GetTaskResponse, error)
+	FinishTask(context.Context, *FinishTaskRequest) (*FinishTaskResponse, error)
 	mustEmbedUnimplementedCoordinatorServiceServer()
 }
 
@@ -40,6 +98,18 @@ type CoordinatorServiceServer interface {
 type UnimplementedCoordinatorServiceServer struct {
 }
 
+func (UnimplementedCoordinatorServiceServer) CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateTask not implemented")
+}
+func (UnimplementedCoordinatorServiceServer) RegisterWorker(context.Context, *RegisterWorkerRequest) (*RegisterWorkerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterWorker not implemented")
+}
+func (UnimplementedCoordinatorServiceServer) GetTask(context.Context, *GetTaskRequest) (*GetTaskResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTask not implemented")
+}
+func (UnimplementedCoordinatorServiceServer) FinishTask(context.Context, *FinishTaskRequest) (*FinishTaskResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FinishTask not implemented")
+}
 func (UnimplementedCoordinatorServiceServer) mustEmbedUnimplementedCoordinatorServiceServer() {}
 
 // UnsafeCoordinatorServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -53,13 +123,102 @@ func RegisterCoordinatorServiceServer(s grpc.ServiceRegistrar, srv CoordinatorSe
 	s.RegisterService(&CoordinatorService_ServiceDesc, srv)
 }
 
+func _CoordinatorService_CreateTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTaskRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoordinatorServiceServer).CreateTask(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CoordinatorService_CreateTask_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoordinatorServiceServer).CreateTask(ctx, req.(*CreateTaskRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoordinatorService_RegisterWorker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterWorkerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoordinatorServiceServer).RegisterWorker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CoordinatorService_RegisterWorker_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoordinatorServiceServer).RegisterWorker(ctx, req.(*RegisterWorkerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoordinatorService_GetTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTaskRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoordinatorServiceServer).GetTask(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CoordinatorService_GetTask_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoordinatorServiceServer).GetTask(ctx, req.(*GetTaskRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoordinatorService_FinishTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FinishTaskRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoordinatorServiceServer).FinishTask(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CoordinatorService_FinishTask_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoordinatorServiceServer).FinishTask(ctx, req.(*FinishTaskRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CoordinatorService_ServiceDesc is the grpc.ServiceDesc for CoordinatorService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CoordinatorService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "dron_poc.CoordinatorService",
 	HandlerType: (*CoordinatorServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "dron_poc/coordinator.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateTask",
+			Handler:    _CoordinatorService_CreateTask_Handler,
+		},
+		{
+			MethodName: "RegisterWorker",
+			Handler:    _CoordinatorService_RegisterWorker_Handler,
+		},
+		{
+			MethodName: "GetTask",
+			Handler:    _CoordinatorService_GetTask_Handler,
+		},
+		{
+			MethodName: "FinishTask",
+			Handler:    _CoordinatorService_FinishTask_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "dron_poc/coordinator.proto",
 }
