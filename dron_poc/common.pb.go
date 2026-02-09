@@ -297,6 +297,90 @@ func (x *TaskOutput) GetValue() string {
 	return ""
 }
 
+type Worker struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            *WorkerID              `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Address       *Address               `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
+	CurrentTask   *TaskId                `protobuf:"bytes,6,opt,name=current_task,json=currentTask,proto3" json:"current_task,omitempty"`
+	IsAlive       bool                   `protobuf:"varint,4,opt,name=is_alive,json=isAlive,proto3" json:"is_alive,omitempty"`
+	LastHeartbeat *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=last_heartbeat,json=lastHeartbeat,proto3" json:"last_heartbeat,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Worker) Reset() {
+	*x = Worker{}
+	mi := &file_dron_poc_common_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Worker) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Worker) ProtoMessage() {}
+
+func (x *Worker) ProtoReflect() protoreflect.Message {
+	mi := &file_dron_poc_common_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Worker.ProtoReflect.Descriptor instead.
+func (*Worker) Descriptor() ([]byte, []int) {
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *Worker) GetId() *WorkerID {
+	if x != nil {
+		return x.Id
+	}
+	return nil
+}
+
+func (x *Worker) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Worker) GetAddress() *Address {
+	if x != nil {
+		return x.Address
+	}
+	return nil
+}
+
+func (x *Worker) GetCurrentTask() *TaskId {
+	if x != nil {
+		return x.CurrentTask
+	}
+	return nil
+}
+
+func (x *Worker) GetIsAlive() bool {
+	if x != nil {
+		return x.IsAlive
+	}
+	return false
+}
+
+func (x *Worker) GetLastHeartbeat() *timestamppb.Timestamp {
+	if x != nil {
+		return x.LastHeartbeat
+	}
+	return nil
+}
+
 type Task struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            *TaskId                `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -313,7 +397,7 @@ type Task struct {
 
 func (x *Task) Reset() {
 	*x = Task{}
-	mi := &file_dron_poc_common_proto_msgTypes[5]
+	mi := &file_dron_poc_common_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -325,7 +409,7 @@ func (x *Task) String() string {
 func (*Task) ProtoMessage() {}
 
 func (x *Task) ProtoReflect() protoreflect.Message {
-	mi := &file_dron_poc_common_proto_msgTypes[5]
+	mi := &file_dron_poc_common_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -338,7 +422,7 @@ func (x *Task) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Task.ProtoReflect.Descriptor instead.
 func (*Task) Descriptor() ([]byte, []int) {
-	return file_dron_poc_common_proto_rawDescGZIP(), []int{5}
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Task) GetId() *TaskId {
@@ -408,7 +492,7 @@ type CreateTaskRequest struct {
 
 func (x *CreateTaskRequest) Reset() {
 	*x = CreateTaskRequest{}
-	mi := &file_dron_poc_common_proto_msgTypes[6]
+	mi := &file_dron_poc_common_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -420,7 +504,7 @@ func (x *CreateTaskRequest) String() string {
 func (*CreateTaskRequest) ProtoMessage() {}
 
 func (x *CreateTaskRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dron_poc_common_proto_msgTypes[6]
+	mi := &file_dron_poc_common_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -433,7 +517,7 @@ func (x *CreateTaskRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateTaskRequest.ProtoReflect.Descriptor instead.
 func (*CreateTaskRequest) Descriptor() ([]byte, []int) {
-	return file_dron_poc_common_proto_rawDescGZIP(), []int{6}
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *CreateTaskRequest) GetName() string {
@@ -462,7 +546,7 @@ type CreateTaskResponse struct {
 
 func (x *CreateTaskResponse) Reset() {
 	*x = CreateTaskResponse{}
-	mi := &file_dron_poc_common_proto_msgTypes[7]
+	mi := &file_dron_poc_common_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -474,7 +558,7 @@ func (x *CreateTaskResponse) String() string {
 func (*CreateTaskResponse) ProtoMessage() {}
 
 func (x *CreateTaskResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_dron_poc_common_proto_msgTypes[7]
+	mi := &file_dron_poc_common_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -487,7 +571,7 @@ func (x *CreateTaskResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateTaskResponse.ProtoReflect.Descriptor instead.
 func (*CreateTaskResponse) Descriptor() ([]byte, []int) {
-	return file_dron_poc_common_proto_rawDescGZIP(), []int{7}
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *CreateTaskResponse) GetId() *TaskId {
@@ -522,7 +606,7 @@ type RegisterWorkerRequest struct {
 
 func (x *RegisterWorkerRequest) Reset() {
 	*x = RegisterWorkerRequest{}
-	mi := &file_dron_poc_common_proto_msgTypes[8]
+	mi := &file_dron_poc_common_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -534,7 +618,7 @@ func (x *RegisterWorkerRequest) String() string {
 func (*RegisterWorkerRequest) ProtoMessage() {}
 
 func (x *RegisterWorkerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dron_poc_common_proto_msgTypes[8]
+	mi := &file_dron_poc_common_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -547,7 +631,7 @@ func (x *RegisterWorkerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterWorkerRequest.ProtoReflect.Descriptor instead.
 func (*RegisterWorkerRequest) Descriptor() ([]byte, []int) {
-	return file_dron_poc_common_proto_rawDescGZIP(), []int{8}
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *RegisterWorkerRequest) GetName() string {
@@ -576,7 +660,7 @@ type RegisterWorkerResponse struct {
 
 func (x *RegisterWorkerResponse) Reset() {
 	*x = RegisterWorkerResponse{}
-	mi := &file_dron_poc_common_proto_msgTypes[9]
+	mi := &file_dron_poc_common_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -588,7 +672,7 @@ func (x *RegisterWorkerResponse) String() string {
 func (*RegisterWorkerResponse) ProtoMessage() {}
 
 func (x *RegisterWorkerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_dron_poc_common_proto_msgTypes[9]
+	mi := &file_dron_poc_common_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -601,7 +685,7 @@ func (x *RegisterWorkerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterWorkerResponse.ProtoReflect.Descriptor instead.
 func (*RegisterWorkerResponse) Descriptor() ([]byte, []int) {
-	return file_dron_poc_common_proto_rawDescGZIP(), []int{9}
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *RegisterWorkerResponse) GetId() *WorkerID {
@@ -635,7 +719,7 @@ type GetTaskRequest struct {
 
 func (x *GetTaskRequest) Reset() {
 	*x = GetTaskRequest{}
-	mi := &file_dron_poc_common_proto_msgTypes[10]
+	mi := &file_dron_poc_common_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -647,7 +731,7 @@ func (x *GetTaskRequest) String() string {
 func (*GetTaskRequest) ProtoMessage() {}
 
 func (x *GetTaskRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dron_poc_common_proto_msgTypes[10]
+	mi := &file_dron_poc_common_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -660,7 +744,7 @@ func (x *GetTaskRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTaskRequest.ProtoReflect.Descriptor instead.
 func (*GetTaskRequest) Descriptor() ([]byte, []int) {
-	return file_dron_poc_common_proto_rawDescGZIP(), []int{10}
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *GetTaskRequest) GetId() *WorkerID {
@@ -682,7 +766,7 @@ type GetTaskResponse struct {
 
 func (x *GetTaskResponse) Reset() {
 	*x = GetTaskResponse{}
-	mi := &file_dron_poc_common_proto_msgTypes[11]
+	mi := &file_dron_poc_common_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -694,7 +778,7 @@ func (x *GetTaskResponse) String() string {
 func (*GetTaskResponse) ProtoMessage() {}
 
 func (x *GetTaskResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_dron_poc_common_proto_msgTypes[11]
+	mi := &file_dron_poc_common_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -707,7 +791,7 @@ func (x *GetTaskResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTaskResponse.ProtoReflect.Descriptor instead.
 func (*GetTaskResponse) Descriptor() ([]byte, []int) {
-	return file_dron_poc_common_proto_rawDescGZIP(), []int{11}
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetTaskResponse) GetTask() *Task {
@@ -744,7 +828,7 @@ type FinishTaskRequest struct {
 
 func (x *FinishTaskRequest) Reset() {
 	*x = FinishTaskRequest{}
-	mi := &file_dron_poc_common_proto_msgTypes[12]
+	mi := &file_dron_poc_common_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -756,7 +840,7 @@ func (x *FinishTaskRequest) String() string {
 func (*FinishTaskRequest) ProtoMessage() {}
 
 func (x *FinishTaskRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dron_poc_common_proto_msgTypes[12]
+	mi := &file_dron_poc_common_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -769,7 +853,7 @@ func (x *FinishTaskRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishTaskRequest.ProtoReflect.Descriptor instead.
 func (*FinishTaskRequest) Descriptor() ([]byte, []int) {
-	return file_dron_poc_common_proto_rawDescGZIP(), []int{12}
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *FinishTaskRequest) GetId() *WorkerID {
@@ -810,7 +894,7 @@ type FinishTaskResponse struct {
 
 func (x *FinishTaskResponse) Reset() {
 	*x = FinishTaskResponse{}
-	mi := &file_dron_poc_common_proto_msgTypes[13]
+	mi := &file_dron_poc_common_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -822,7 +906,7 @@ func (x *FinishTaskResponse) String() string {
 func (*FinishTaskResponse) ProtoMessage() {}
 
 func (x *FinishTaskResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_dron_poc_common_proto_msgTypes[13]
+	mi := &file_dron_poc_common_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -835,7 +919,7 @@ func (x *FinishTaskResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishTaskResponse.ProtoReflect.Descriptor instead.
 func (*FinishTaskResponse) Descriptor() ([]byte, []int) {
-	return file_dron_poc_common_proto_rawDescGZIP(), []int{13}
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *FinishTaskResponse) GetSuccess() bool {
@@ -867,7 +951,14 @@ const file_dron_poc_common_proto_rawDesc = "" +
 	"\x05value\x18\x01 \x01(\tR\x05value\"\"\n" +
 	"\n" +
 	"TaskOutput\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\tR\x05value\"\xff\x02\n" +
+	"\x05value\x18\x01 \x01(\tR\x05value\"\x80\x02\n" +
+	"\x06Worker\x12\"\n" +
+	"\x02id\x18\x01 \x01(\v2\x12.dron_poc.WorkerIDR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12+\n" +
+	"\aaddress\x18\x03 \x01(\v2\x11.dron_poc.AddressR\aaddress\x123\n" +
+	"\fcurrent_task\x18\x06 \x01(\v2\x10.dron_poc.TaskIdR\vcurrentTask\x12\x19\n" +
+	"\bis_alive\x18\x04 \x01(\bR\aisAlive\x12A\n" +
+	"\x0elast_heartbeat\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\rlastHeartbeat\"\xff\x02\n" +
 	"\x04Task\x12 \n" +
 	"\x02id\x18\x01 \x01(\v2\x10.dron_poc.TaskIdR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12+\n" +
@@ -927,7 +1018,7 @@ func file_dron_poc_common_proto_rawDescGZIP() []byte {
 }
 
 var file_dron_poc_common_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_dron_poc_common_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_dron_poc_common_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_dron_poc_common_proto_goTypes = []any{
 	(Status)(0),                    // 0: dron_poc.Status
 	(*TaskId)(nil),                 // 1: dron_poc.TaskId
@@ -935,40 +1026,45 @@ var file_dron_poc_common_proto_goTypes = []any{
 	(*Command)(nil),                // 3: dron_poc.Command
 	(*Address)(nil),                // 4: dron_poc.Address
 	(*TaskOutput)(nil),             // 5: dron_poc.TaskOutput
-	(*Task)(nil),                   // 6: dron_poc.Task
-	(*CreateTaskRequest)(nil),      // 7: dron_poc.CreateTaskRequest
-	(*CreateTaskResponse)(nil),     // 8: dron_poc.CreateTaskResponse
-	(*RegisterWorkerRequest)(nil),  // 9: dron_poc.RegisterWorkerRequest
-	(*RegisterWorkerResponse)(nil), // 10: dron_poc.RegisterWorkerResponse
-	(*GetTaskRequest)(nil),         // 11: dron_poc.GetTaskRequest
-	(*GetTaskResponse)(nil),        // 12: dron_poc.GetTaskResponse
-	(*FinishTaskRequest)(nil),      // 13: dron_poc.FinishTaskRequest
-	(*FinishTaskResponse)(nil),     // 14: dron_poc.FinishTaskResponse
-	(*timestamppb.Timestamp)(nil),  // 15: google.protobuf.Timestamp
+	(*Worker)(nil),                 // 6: dron_poc.Worker
+	(*Task)(nil),                   // 7: dron_poc.Task
+	(*CreateTaskRequest)(nil),      // 8: dron_poc.CreateTaskRequest
+	(*CreateTaskResponse)(nil),     // 9: dron_poc.CreateTaskResponse
+	(*RegisterWorkerRequest)(nil),  // 10: dron_poc.RegisterWorkerRequest
+	(*RegisterWorkerResponse)(nil), // 11: dron_poc.RegisterWorkerResponse
+	(*GetTaskRequest)(nil),         // 12: dron_poc.GetTaskRequest
+	(*GetTaskResponse)(nil),        // 13: dron_poc.GetTaskResponse
+	(*FinishTaskRequest)(nil),      // 14: dron_poc.FinishTaskRequest
+	(*FinishTaskResponse)(nil),     // 15: dron_poc.FinishTaskResponse
+	(*timestamppb.Timestamp)(nil),  // 16: google.protobuf.Timestamp
 }
 var file_dron_poc_common_proto_depIdxs = []int32{
-	1,  // 0: dron_poc.Task.id:type_name -> dron_poc.TaskId
-	3,  // 1: dron_poc.Task.command:type_name -> dron_poc.Command
-	0,  // 2: dron_poc.Task.status:type_name -> dron_poc.Status
-	1,  // 3: dron_poc.Task.assigned_to:type_name -> dron_poc.TaskId
-	15, // 4: dron_poc.Task.submitted_at:type_name -> google.protobuf.Timestamp
-	15, // 5: dron_poc.Task.started_at:type_name -> google.protobuf.Timestamp
-	15, // 6: dron_poc.Task.completed_at:type_name -> google.protobuf.Timestamp
-	3,  // 7: dron_poc.CreateTaskRequest.command:type_name -> dron_poc.Command
-	1,  // 8: dron_poc.CreateTaskResponse.id:type_name -> dron_poc.TaskId
-	4,  // 9: dron_poc.RegisterWorkerRequest.address:type_name -> dron_poc.Address
-	2,  // 10: dron_poc.RegisterWorkerResponse.id:type_name -> dron_poc.WorkerID
-	2,  // 11: dron_poc.GetTaskRequest.id:type_name -> dron_poc.WorkerID
-	6,  // 12: dron_poc.GetTaskResponse.task:type_name -> dron_poc.Task
-	2,  // 13: dron_poc.FinishTaskRequest.id:type_name -> dron_poc.WorkerID
-	1,  // 14: dron_poc.FinishTaskRequest.task_id:type_name -> dron_poc.TaskId
-	0,  // 15: dron_poc.FinishTaskRequest.status:type_name -> dron_poc.Status
-	5,  // 16: dron_poc.FinishTaskRequest.output:type_name -> dron_poc.TaskOutput
-	17, // [17:17] is the sub-list for method output_type
-	17, // [17:17] is the sub-list for method input_type
-	17, // [17:17] is the sub-list for extension type_name
-	17, // [17:17] is the sub-list for extension extendee
-	0,  // [0:17] is the sub-list for field type_name
+	2,  // 0: dron_poc.Worker.id:type_name -> dron_poc.WorkerID
+	4,  // 1: dron_poc.Worker.address:type_name -> dron_poc.Address
+	1,  // 2: dron_poc.Worker.current_task:type_name -> dron_poc.TaskId
+	16, // 3: dron_poc.Worker.last_heartbeat:type_name -> google.protobuf.Timestamp
+	1,  // 4: dron_poc.Task.id:type_name -> dron_poc.TaskId
+	3,  // 5: dron_poc.Task.command:type_name -> dron_poc.Command
+	0,  // 6: dron_poc.Task.status:type_name -> dron_poc.Status
+	1,  // 7: dron_poc.Task.assigned_to:type_name -> dron_poc.TaskId
+	16, // 8: dron_poc.Task.submitted_at:type_name -> google.protobuf.Timestamp
+	16, // 9: dron_poc.Task.started_at:type_name -> google.protobuf.Timestamp
+	16, // 10: dron_poc.Task.completed_at:type_name -> google.protobuf.Timestamp
+	3,  // 11: dron_poc.CreateTaskRequest.command:type_name -> dron_poc.Command
+	1,  // 12: dron_poc.CreateTaskResponse.id:type_name -> dron_poc.TaskId
+	4,  // 13: dron_poc.RegisterWorkerRequest.address:type_name -> dron_poc.Address
+	2,  // 14: dron_poc.RegisterWorkerResponse.id:type_name -> dron_poc.WorkerID
+	2,  // 15: dron_poc.GetTaskRequest.id:type_name -> dron_poc.WorkerID
+	7,  // 16: dron_poc.GetTaskResponse.task:type_name -> dron_poc.Task
+	2,  // 17: dron_poc.FinishTaskRequest.id:type_name -> dron_poc.WorkerID
+	1,  // 18: dron_poc.FinishTaskRequest.task_id:type_name -> dron_poc.TaskId
+	0,  // 19: dron_poc.FinishTaskRequest.status:type_name -> dron_poc.Status
+	5,  // 20: dron_poc.FinishTaskRequest.output:type_name -> dron_poc.TaskOutput
+	21, // [21:21] is the sub-list for method output_type
+	21, // [21:21] is the sub-list for method input_type
+	21, // [21:21] is the sub-list for extension type_name
+	21, // [21:21] is the sub-list for extension extendee
+	0,  // [0:21] is the sub-list for field type_name
 }
 
 func init() { file_dron_poc_common_proto_init() }
@@ -982,7 +1078,7 @@ func file_dron_poc_common_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_dron_poc_common_proto_rawDesc), len(file_dron_poc_common_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   14,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

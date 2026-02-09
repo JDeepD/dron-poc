@@ -19,6 +19,15 @@ message Command { string value = 1; }
 message Address { string value = 1; }
 message TaskOutput { string value = 1; }
 
+message Worker {
+  WorkerID id = 1;
+  string name = 2;
+  Address address = 3;
+  TaskId current_task = 6;
+  bool is_alive = 4;
+  google.protobuf.Timestamp last_heartbeat = 5;
+}
+
 message Task {
   TaskId id = 1;
   string name = 2;

@@ -10,5 +10,5 @@ const (
 
 const (
 	CoordinatorServiceName    = "Coordinator"
-	DefaultCoordinatorAddress = "localhost:8080"
+	DefaultCoordinatorAddress = "0.0.0.0:8000"
 )
