@@ -9,6 +9,6 @@ option go_package = "dron-proto/";
 service CoordinatorService {
     rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {};
     rpc RegisterWorker(RegisterWorkerRequest) returns(RegisterWorkerResponse) {};
-    rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {};
+    rpc AssignTask(GetTaskRequest) returns (GetTaskResponse) {};
     rpc FinishTask(FinishTaskRequest) returns(FinishTaskResponse) {};
 }

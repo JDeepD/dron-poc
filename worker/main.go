@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"sync"
+	"time"
 
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
@@ -71,6 +72,39 @@ func (w *Worker) Register(ctx context.Context) error {
 	w.id = resp.Id.Value
 	log.Info().Int32("worker_id", w.id).Msgf("Worker %s registered successfully with ID %d", w.name, w.id)
 	return nil
+}
+
+func (w *Worker) Poll(ctx context.Context) {
+	ticker := time.NewTicker(config.WorkerPollInterval)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ticker.C:
+			w.getTask(ctx)
+			return
+		case <-ctx.Done():
+			log.Info().Msgf("Worker %s is shutting down", w.name)
+		}
+	}
+}
+
+func (w *Worker) getTask(ctx context.Context) {
+	req := &pb.GetTaskRequest{
+		WorkerId: &pb.WorkerID{Value: w.id},
+	}
+
+	resp, err := w.coordinatorClient.AssignTask(ctx, req)
+	if err != nil {
+		log.Error().Err(err).Msgf("Failed to get task for worker %s", w.name)
+		return
+	}
+
+	if resp.HasTask == false {
+		log.Info().Msgf("No task assigned to worker %s", w.name)
+		return
+	}
+	// TODO: Execute the task and report completion
 }
 
 func main() {

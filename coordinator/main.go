@@ -16,7 +16,7 @@ import (
 
 type Coordinator struct {
 	pb.UnimplementedCoordinatorServiceServer
-	my           sync.Mutex
+	mu           sync.Mutex
 	tasks        map[int32]*pb.Task
 	workers      map[int32]*pb.Worker
 	runningTasks map[int32]*pb.Task
@@ -47,14 +47,16 @@ func (c *Coordinator) StartWorkerMonitor(ctx context.Context) {
 }
 
 func (c *Coordinator) CheckWorkerStatus(ctx context.Context) {
-	for workerID := range c.workers {
-		log.Info().Msgf("Tick: Checking worker status for worker ID %d", workerID)
+	for id, worker := range c.workers {
+		if worker.IsAlive {
+			log.Info().Int32("worker_id", id).Msgf("Worker %s is alive", worker.Name)
+		}
 	}
 }
 
 func (c *Coordinator) RegisterWorker(ctx context.Context, req *pb.RegisterWorkerRequest) (*pb.RegisterWorkerResponse, error) {
-	c.my.Lock()
-	defer c.my.Unlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 
 	workerID := int32(len(c.workers) + 1)
 
@@ -74,6 +76,24 @@ func (c *Coordinator) RegisterWorker(ctx context.Context, req *pb.RegisterWorker
 		Message: "Worker registered successfully",
 		Id:      &pb.WorkerID{Value: workerID},
 	}, nil
+}
+
+func (c *Coordinator) AssignTask(ctx context.Context, req *pb.GetTaskRequest) (*pb.GetTaskResponse, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	workerId := req.WorkerId.Value
+	_, exists := c.workers[workerId]
+	if !exists {
+		log.Warn().Int32("worker_id", workerId).Msgf("Worker with ID %d not found", workerId)
+		return &pb.GetTaskResponse{
+			HasTask: false,
+			Message: "Worker not registered.",
+		}, nil
+	}
+
+	// TODO: Implement task assignment logic
+	return &pb.GetTaskResponse{}, nil
 }
 
 func main() {

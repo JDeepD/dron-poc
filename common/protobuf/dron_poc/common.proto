@@ -67,7 +67,7 @@ message RegisterWorkerResponse {
 
 // Worker to Coordinator
 message GetTaskRequest {
-  WorkerID id = 1;
+  WorkerID WorkerId = 1;
 }
 
 // Coordinator to Worker

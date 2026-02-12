@@ -712,7 +712,7 @@ func (x *RegisterWorkerResponse) GetMessage() string {
 // Worker to Coordinator
 type GetTaskRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            *WorkerID              `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	WorkerId      *WorkerID              `protobuf:"bytes,1,opt,name=WorkerId,proto3" json:"WorkerId,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -747,9 +747,9 @@ func (*GetTaskRequest) Descriptor() ([]byte, []int) {
 	return file_dron_poc_common_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *GetTaskRequest) GetId() *WorkerID {
+func (x *GetTaskRequest) GetWorkerId() *WorkerID {
 	if x != nil {
-		return x.Id
+		return x.WorkerId
 	}
 	return nil
 }
@@ -983,9 +983,9 @@ const file_dron_poc_common_proto_rawDesc = "" +
 	"\x16RegisterWorkerResponse\x12\"\n" +
 	"\x02id\x18\x01 \x01(\v2\x12.dron_poc.WorkerIDR\x02id\x12\x18\n" +
 	"\asuccess\x18\x02 \x01(\bR\asuccess\x12\x18\n" +
-	"\amessage\x18\x03 \x01(\tR\amessage\"4\n" +
-	"\x0eGetTaskRequest\x12\"\n" +
-	"\x02id\x18\x01 \x01(\v2\x12.dron_poc.WorkerIDR\x02id\"j\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\"@\n" +
+	"\x0eGetTaskRequest\x12.\n" +
+	"\bWorkerId\x18\x01 \x01(\v2\x12.dron_poc.WorkerIDR\bWorkerId\"j\n" +
 	"\x0fGetTaskResponse\x12\"\n" +
 	"\x04task\x18\x01 \x01(\v2\x0e.dron_poc.TaskR\x04task\x12\x19\n" +
 	"\bhas_task\x18\x02 \x01(\bR\ahasTask\x12\x18\n" +
@@ -1054,7 +1054,7 @@ var file_dron_poc_common_proto_depIdxs = []int32{
 	1,  // 12: dron_poc.CreateTaskResponse.id:type_name -> dron_poc.TaskId
 	4,  // 13: dron_poc.RegisterWorkerRequest.address:type_name -> dron_poc.Address
 	2,  // 14: dron_poc.RegisterWorkerResponse.id:type_name -> dron_poc.WorkerID
-	2,  // 15: dron_poc.GetTaskRequest.id:type_name -> dron_poc.WorkerID
+	2,  // 15: dron_poc.GetTaskRequest.WorkerId:type_name -> dron_poc.WorkerID
 	7,  // 16: dron_poc.GetTaskResponse.task:type_name -> dron_poc.Task
 	2,  // 17: dron_poc.FinishTaskRequest.id:type_name -> dron_poc.WorkerID
 	1,  // 18: dron_poc.FinishTaskRequest.task_id:type_name -> dron_poc.TaskId
