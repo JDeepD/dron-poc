@@ -13,6 +13,14 @@ enum Status {
   STATUS_FAILURE = 4;
 }
 
+enum Priority {
+  PRIORITY_UNSPECIFIED = 0;
+  PRIORITY_LOW = 1;
+  PRIORITY_NORMAL = 2;
+  PRIORITY_HIGH = 3;
+  PRIORITY_CRITICAL = 4;
+}
+
 message TaskId { int32 value = 1; }
 message WorkerID { int32 value = 1; }
 message Command { string value = 1; }
@@ -35,8 +43,9 @@ message Task {
   Status status = 4;
   TaskId assigned_to = 5;
   google.protobuf.Timestamp submitted_at = 6;
-  google.protobuf.Timestamp started_at = 8;
-  google.protobuf.Timestamp completed_at = 7;
+  google.protobuf.Timestamp started_at = 7;
+  google.protobuf.Timestamp completed_at = 8;
+  Priority priority = 9;
 }
 
 // To Coordinator

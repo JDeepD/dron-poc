@@ -77,6 +77,61 @@ func (Status) EnumDescriptor() ([]byte, []int) {
 	return file_dron_poc_common_proto_rawDescGZIP(), []int{0}
 }
 
+type Priority int32
+
+const (
+	Priority_PRIORITY_UNSPECIFIED Priority = 0
+	Priority_PRIORITY_LOW         Priority = 1
+	Priority_PRIORITY_NORMAL      Priority = 2
+	Priority_PRIORITY_HIGH        Priority = 3
+	Priority_PRIORITY_CRITICAL    Priority = 4
+)
+
+// Enum value maps for Priority.
+var (
+	Priority_name = map[int32]string{
+		0: "PRIORITY_UNSPECIFIED",
+		1: "PRIORITY_LOW",
+		2: "PRIORITY_NORMAL",
+		3: "PRIORITY_HIGH",
+		4: "PRIORITY_CRITICAL",
+	}
+	Priority_value = map[string]int32{
+		"PRIORITY_UNSPECIFIED": 0,
+		"PRIORITY_LOW":         1,
+		"PRIORITY_NORMAL":      2,
+		"PRIORITY_HIGH":        3,
+		"PRIORITY_CRITICAL":    4,
+	}
+)
+
+func (x Priority) Enum() *Priority {
+	p := new(Priority)
+	*p = x
+	return p
+}
+
+func (x Priority) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Priority) Descriptor() protoreflect.EnumDescriptor {
+	return file_dron_poc_common_proto_enumTypes[1].Descriptor()
+}
+
+func (Priority) Type() protoreflect.EnumType {
+	return &file_dron_poc_common_proto_enumTypes[1]
+}
+
+func (x Priority) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Priority.Descriptor instead.
+func (Priority) EnumDescriptor() ([]byte, []int) {
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{1}
+}
+
 type TaskId struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Value         int32                  `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
@@ -389,8 +444,9 @@ type Task struct {
 	Status        Status                 `protobuf:"varint,4,opt,name=status,proto3,enum=dron_poc.Status" json:"status,omitempty"`
 	AssignedTo    *TaskId                `protobuf:"bytes,5,opt,name=assigned_to,json=assignedTo,proto3" json:"assigned_to,omitempty"`
 	SubmittedAt   *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=submitted_at,json=submittedAt,proto3" json:"submitted_at,omitempty"`
-	StartedAt     *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=started_at,json=startedAt,proto3" json:"started_at,omitempty"`
-	CompletedAt   *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=completed_at,json=completedAt,proto3" json:"completed_at,omitempty"`
+	StartedAt     *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=started_at,json=startedAt,proto3" json:"started_at,omitempty"`
+	CompletedAt   *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=completed_at,json=completedAt,proto3" json:"completed_at,omitempty"`
+	Priority      Priority               `protobuf:"varint,9,opt,name=priority,proto3,enum=dron_poc.Priority" json:"priority,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -479,6 +535,13 @@ func (x *Task) GetCompletedAt() *timestamppb.Timestamp {
 		return x.CompletedAt
 	}
 	return nil
+}
+
+func (x *Task) GetPriority() Priority {
+	if x != nil {
+		return x.Priority
+	}
+	return Priority_PRIORITY_UNSPECIFIED
 }
 
 // To Coordinator
@@ -958,7 +1021,7 @@ const file_dron_poc_common_proto_rawDesc = "" +
 	"\aaddress\x18\x03 \x01(\v2\x11.dron_poc.AddressR\aaddress\x123\n" +
 	"\fcurrent_task\x18\x06 \x01(\v2\x10.dron_poc.TaskIdR\vcurrentTask\x12\x19\n" +
 	"\bis_alive\x18\x04 \x01(\bR\aisAlive\x12A\n" +
-	"\x0elast_heartbeat\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\rlastHeartbeat\"\xff\x02\n" +
+	"\x0elast_heartbeat\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\rlastHeartbeat\"\xaf\x03\n" +
 	"\x04Task\x12 \n" +
 	"\x02id\x18\x01 \x01(\v2\x10.dron_poc.TaskIdR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12+\n" +
@@ -968,8 +1031,9 @@ const file_dron_poc_common_proto_rawDesc = "" +
 	"assignedTo\x12=\n" +
 	"\fsubmitted_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\vsubmittedAt\x129\n" +
 	"\n" +
-	"started_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tstartedAt\x12=\n" +
-	"\fcompleted_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\vcompletedAt\"T\n" +
+	"started_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tstartedAt\x12=\n" +
+	"\fcompleted_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\vcompletedAt\x12.\n" +
+	"\bpriority\x18\t \x01(\x0e2\x12.dron_poc.PriorityR\bpriority\"T\n" +
 	"\x11CreateTaskRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12+\n" +
 	"\acommand\x18\x02 \x01(\v2\x11.dron_poc.CommandR\acommand\"j\n" +
@@ -1003,7 +1067,13 @@ const file_dron_poc_common_proto_rawDesc = "" +
 	"\x0eSTATUS_PENDING\x10\x01\x12\x12\n" +
 	"\x0eSTATUS_RUNNING\x10\x02\x12\x12\n" +
 	"\x0eSTATUS_SUCCESS\x10\x03\x12\x12\n" +
-	"\x0eSTATUS_FAILURE\x10\x04B\rZ\vdron-proto/b\x06proto3"
+	"\x0eSTATUS_FAILURE\x10\x04*u\n" +
+	"\bPriority\x12\x18\n" +
+	"\x14PRIORITY_UNSPECIFIED\x10\x00\x12\x10\n" +
+	"\fPRIORITY_LOW\x10\x01\x12\x13\n" +
+	"\x0fPRIORITY_NORMAL\x10\x02\x12\x11\n" +
+	"\rPRIORITY_HIGH\x10\x03\x12\x15\n" +
+	"\x11PRIORITY_CRITICAL\x10\x04B\rZ\vdron-proto/b\x06proto3"
 
 var (
 	file_dron_poc_common_proto_rawDescOnce sync.Once
@@ -1017,54 +1087,56 @@ func file_dron_poc_common_proto_rawDescGZIP() []byte {
 	return file_dron_poc_common_proto_rawDescData
 }
 
-var file_dron_poc_common_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_dron_poc_common_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_dron_poc_common_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_dron_poc_common_proto_goTypes = []any{
 	(Status)(0),                    // 0: dron_poc.Status
-	(*TaskId)(nil),                 // 1: dron_poc.TaskId
-	(*WorkerID)(nil),               // 2: dron_poc.WorkerID
-	(*Command)(nil),                // 3: dron_poc.Command
-	(*Address)(nil),                // 4: dron_poc.Address
-	(*TaskOutput)(nil),             // 5: dron_poc.TaskOutput
-	(*Worker)(nil),                 // 6: dron_poc.Worker
-	(*Task)(nil),                   // 7: dron_poc.Task
-	(*CreateTaskRequest)(nil),      // 8: dron_poc.CreateTaskRequest
-	(*CreateTaskResponse)(nil),     // 9: dron_poc.CreateTaskResponse
-	(*RegisterWorkerRequest)(nil),  // 10: dron_poc.RegisterWorkerRequest
-	(*RegisterWorkerResponse)(nil), // 11: dron_poc.RegisterWorkerResponse
-	(*GetTaskRequest)(nil),         // 12: dron_poc.GetTaskRequest
-	(*GetTaskResponse)(nil),        // 13: dron_poc.GetTaskResponse
-	(*FinishTaskRequest)(nil),      // 14: dron_poc.FinishTaskRequest
-	(*FinishTaskResponse)(nil),     // 15: dron_poc.FinishTaskResponse
-	(*timestamppb.Timestamp)(nil),  // 16: google.protobuf.Timestamp
+	(Priority)(0),                  // 1: dron_poc.Priority
+	(*TaskId)(nil),                 // 2: dron_poc.TaskId
+	(*WorkerID)(nil),               // 3: dron_poc.WorkerID
+	(*Command)(nil),                // 4: dron_poc.Command
+	(*Address)(nil),                // 5: dron_poc.Address
+	(*TaskOutput)(nil),             // 6: dron_poc.TaskOutput
+	(*Worker)(nil),                 // 7: dron_poc.Worker
+	(*Task)(nil),                   // 8: dron_poc.Task
+	(*CreateTaskRequest)(nil),      // 9: dron_poc.CreateTaskRequest
+	(*CreateTaskResponse)(nil),     // 10: dron_poc.CreateTaskResponse
+	(*RegisterWorkerRequest)(nil),  // 11: dron_poc.RegisterWorkerRequest
+	(*RegisterWorkerResponse)(nil), // 12: dron_poc.RegisterWorkerResponse
+	(*GetTaskRequest)(nil),         // 13: dron_poc.GetTaskRequest
+	(*GetTaskResponse)(nil),        // 14: dron_poc.GetTaskResponse
+	(*FinishTaskRequest)(nil),      // 15: dron_poc.FinishTaskRequest
+	(*FinishTaskResponse)(nil),     // 16: dron_poc.FinishTaskResponse
+	(*timestamppb.Timestamp)(nil),  // 17: google.protobuf.Timestamp
 }
 var file_dron_poc_common_proto_depIdxs = []int32{
-	2,  // 0: dron_poc.Worker.id:type_name -> dron_poc.WorkerID
-	4,  // 1: dron_poc.Worker.address:type_name -> dron_poc.Address
-	1,  // 2: dron_poc.Worker.current_task:type_name -> dron_poc.TaskId
-	16, // 3: dron_poc.Worker.last_heartbeat:type_name -> google.protobuf.Timestamp
-	1,  // 4: dron_poc.Task.id:type_name -> dron_poc.TaskId
-	3,  // 5: dron_poc.Task.command:type_name -> dron_poc.Command
+	3,  // 0: dron_poc.Worker.id:type_name -> dron_poc.WorkerID
+	5,  // 1: dron_poc.Worker.address:type_name -> dron_poc.Address
+	2,  // 2: dron_poc.Worker.current_task:type_name -> dron_poc.TaskId
+	17, // 3: dron_poc.Worker.last_heartbeat:type_name -> google.protobuf.Timestamp
+	2,  // 4: dron_poc.Task.id:type_name -> dron_poc.TaskId
+	4,  // 5: dron_poc.Task.command:type_name -> dron_poc.Command
 	0,  // 6: dron_poc.Task.status:type_name -> dron_poc.Status
-	1,  // 7: dron_poc.Task.assigned_to:type_name -> dron_poc.TaskId
-	16, // 8: dron_poc.Task.submitted_at:type_name -> google.protobuf.Timestamp
-	16, // 9: dron_poc.Task.started_at:type_name -> google.protobuf.Timestamp
-	16, // 10: dron_poc.Task.completed_at:type_name -> google.protobuf.Timestamp
-	3,  // 11: dron_poc.CreateTaskRequest.command:type_name -> dron_poc.Command
-	1,  // 12: dron_poc.CreateTaskResponse.id:type_name -> dron_poc.TaskId
-	4,  // 13: dron_poc.RegisterWorkerRequest.address:type_name -> dron_poc.Address
-	2,  // 14: dron_poc.RegisterWorkerResponse.id:type_name -> dron_poc.WorkerID
-	2,  // 15: dron_poc.GetTaskRequest.WorkerId:type_name -> dron_poc.WorkerID
-	7,  // 16: dron_poc.GetTaskResponse.task:type_name -> dron_poc.Task
-	2,  // 17: dron_poc.FinishTaskRequest.id:type_name -> dron_poc.WorkerID
-	1,  // 18: dron_poc.FinishTaskRequest.task_id:type_name -> dron_poc.TaskId
-	0,  // 19: dron_poc.FinishTaskRequest.status:type_name -> dron_poc.Status
-	5,  // 20: dron_poc.FinishTaskRequest.output:type_name -> dron_poc.TaskOutput
-	21, // [21:21] is the sub-list for method output_type
-	21, // [21:21] is the sub-list for method input_type
-	21, // [21:21] is the sub-list for extension type_name
-	21, // [21:21] is the sub-list for extension extendee
-	0,  // [0:21] is the sub-list for field type_name
+	2,  // 7: dron_poc.Task.assigned_to:type_name -> dron_poc.TaskId
+	17, // 8: dron_poc.Task.submitted_at:type_name -> google.protobuf.Timestamp
+	17, // 9: dron_poc.Task.started_at:type_name -> google.protobuf.Timestamp
+	17, // 10: dron_poc.Task.completed_at:type_name -> google.protobuf.Timestamp
+	1,  // 11: dron_poc.Task.priority:type_name -> dron_poc.Priority
+	4,  // 12: dron_poc.CreateTaskRequest.command:type_name -> dron_poc.Command
+	2,  // 13: dron_poc.CreateTaskResponse.id:type_name -> dron_poc.TaskId
+	5,  // 14: dron_poc.RegisterWorkerRequest.address:type_name -> dron_poc.Address
+	3,  // 15: dron_poc.RegisterWorkerResponse.id:type_name -> dron_poc.WorkerID
+	3,  // 16: dron_poc.GetTaskRequest.WorkerId:type_name -> dron_poc.WorkerID
+	8,  // 17: dron_poc.GetTaskResponse.task:type_name -> dron_poc.Task
+	3,  // 18: dron_poc.FinishTaskRequest.id:type_name -> dron_poc.WorkerID
+	2,  // 19: dron_poc.FinishTaskRequest.task_id:type_name -> dron_poc.TaskId
+	0,  // 20: dron_poc.FinishTaskRequest.status:type_name -> dron_poc.Status
+	6,  // 21: dron_poc.FinishTaskRequest.output:type_name -> dron_poc.TaskOutput
+	22, // [22:22] is the sub-list for method output_type
+	22, // [22:22] is the sub-list for method input_type
+	22, // [22:22] is the sub-list for extension type_name
+	22, // [22:22] is the sub-list for extension extendee
+	0,  // [0:22] is the sub-list for field type_name
 }
 
 func init() { file_dron_poc_common_proto_init() }
@@ -1077,7 +1149,7 @@ func file_dron_poc_common_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_dron_poc_common_proto_rawDesc), len(file_dron_poc_common_proto_rawDesc)),
-			NumEnums:      1,
+			NumEnums:      2,
 			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   0,
