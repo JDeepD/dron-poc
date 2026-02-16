@@ -16,6 +16,6 @@ make run-worker NAME=w1 ADDR=localhost:9001
 Provide a name to the task and the command to run
 
 ```sh
-make run-client CMD='create -name t1 -command "echo hello"'
+make run-client ACTION=create NAME="my-task" COMMAND="echo hello" PRIORITY=critical
 ```
 
