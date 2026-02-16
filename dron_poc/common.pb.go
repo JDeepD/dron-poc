@@ -549,6 +549,7 @@ type CreateTaskRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Command       *Command               `protobuf:"bytes,2,opt,name=command,proto3" json:"command,omitempty"`
+	Priority      Priority               `protobuf:"varint,3,opt,name=priority,proto3,enum=dron_poc.Priority" json:"priority,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -595,6 +596,13 @@ func (x *CreateTaskRequest) GetCommand() *Command {
 		return x.Command
 	}
 	return nil
+}
+
+func (x *CreateTaskRequest) GetPriority() Priority {
+	if x != nil {
+		return x.Priority
+	}
+	return Priority_PRIORITY_UNSPECIFIED
 }
 
 // From Coordinator
@@ -1033,10 +1041,11 @@ const file_dron_poc_common_proto_rawDesc = "" +
 	"\n" +
 	"started_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tstartedAt\x12=\n" +
 	"\fcompleted_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\vcompletedAt\x12.\n" +
-	"\bpriority\x18\t \x01(\x0e2\x12.dron_poc.PriorityR\bpriority\"T\n" +
+	"\bpriority\x18\t \x01(\x0e2\x12.dron_poc.PriorityR\bpriority\"\x84\x01\n" +
 	"\x11CreateTaskRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12+\n" +
-	"\acommand\x18\x02 \x01(\v2\x11.dron_poc.CommandR\acommand\"j\n" +
+	"\acommand\x18\x02 \x01(\v2\x11.dron_poc.CommandR\acommand\x12.\n" +
+	"\bpriority\x18\x03 \x01(\x0e2\x12.dron_poc.PriorityR\bpriority\"j\n" +
 	"\x12CreateTaskResponse\x12 \n" +
 	"\x02id\x18\x01 \x01(\v2\x10.dron_poc.TaskIdR\x02id\x12\x18\n" +
 	"\asuccess\x18\x02 \x01(\bR\asuccess\x12\x18\n" +
@@ -1123,20 +1132,21 @@ var file_dron_poc_common_proto_depIdxs = []int32{
 	17, // 10: dron_poc.Task.completed_at:type_name -> google.protobuf.Timestamp
 	1,  // 11: dron_poc.Task.priority:type_name -> dron_poc.Priority
 	4,  // 12: dron_poc.CreateTaskRequest.command:type_name -> dron_poc.Command
-	2,  // 13: dron_poc.CreateTaskResponse.id:type_name -> dron_poc.TaskId
-	5,  // 14: dron_poc.RegisterWorkerRequest.address:type_name -> dron_poc.Address
-	3,  // 15: dron_poc.RegisterWorkerResponse.id:type_name -> dron_poc.WorkerID
-	3,  // 16: dron_poc.GetTaskRequest.WorkerId:type_name -> dron_poc.WorkerID
-	8,  // 17: dron_poc.GetTaskResponse.task:type_name -> dron_poc.Task
-	3,  // 18: dron_poc.FinishTaskRequest.id:type_name -> dron_poc.WorkerID
-	2,  // 19: dron_poc.FinishTaskRequest.task_id:type_name -> dron_poc.TaskId
-	0,  // 20: dron_poc.FinishTaskRequest.status:type_name -> dron_poc.Status
-	6,  // 21: dron_poc.FinishTaskRequest.output:type_name -> dron_poc.TaskOutput
-	22, // [22:22] is the sub-list for method output_type
-	22, // [22:22] is the sub-list for method input_type
-	22, // [22:22] is the sub-list for extension type_name
-	22, // [22:22] is the sub-list for extension extendee
-	0,  // [0:22] is the sub-list for field type_name
+	1,  // 13: dron_poc.CreateTaskRequest.priority:type_name -> dron_poc.Priority
+	2,  // 14: dron_poc.CreateTaskResponse.id:type_name -> dron_poc.TaskId
+	5,  // 15: dron_poc.RegisterWorkerRequest.address:type_name -> dron_poc.Address
+	3,  // 16: dron_poc.RegisterWorkerResponse.id:type_name -> dron_poc.WorkerID
+	3,  // 17: dron_poc.GetTaskRequest.WorkerId:type_name -> dron_poc.WorkerID
+	8,  // 18: dron_poc.GetTaskResponse.task:type_name -> dron_poc.Task
+	3,  // 19: dron_poc.FinishTaskRequest.id:type_name -> dron_poc.WorkerID
+	2,  // 20: dron_poc.FinishTaskRequest.task_id:type_name -> dron_poc.TaskId
+	0,  // 21: dron_poc.FinishTaskRequest.status:type_name -> dron_poc.Status
+	6,  // 22: dron_poc.FinishTaskRequest.output:type_name -> dron_poc.TaskOutput
+	23, // [23:23] is the sub-list for method output_type
+	23, // [23:23] is the sub-list for method input_type
+	23, // [23:23] is the sub-list for extension type_name
+	23, // [23:23] is the sub-list for extension extendee
+	0,  // [0:23] is the sub-list for field type_name
 }
 
 func init() { file_dron_poc_common_proto_init() }

@@ -119,6 +119,12 @@ func (c *Coordinator) CreateTask(ctx context.Context, req *pb.CreateTaskRequest)
 	taskId := c.nextTaskId
 	c.nextTaskId++
 
+	// Use requested priority, default to NORMAL if not specified
+	priority := req.Priority
+	if priority == pb.Priority_PRIORITY_UNSPECIFIED {
+		priority = pb.Priority_PRIORITY_NORMAL
+	}
+
 	task := &pb.Task{
 		Id:          &pb.TaskId{Value: taskId},
 		Name:        req.Name,
@@ -126,7 +132,7 @@ func (c *Coordinator) CreateTask(ctx context.Context, req *pb.CreateTaskRequest)
 		Status:      pb.Status_STATUS_PENDING,
 		AssignedTo:  nil,
 		SubmittedAt: timestamppb.Now(),
-		Priority:    pb.Priority_PRIORITY_NORMAL,
+		Priority:    priority,
 	}
 
 	c.tasks[taskId] = task

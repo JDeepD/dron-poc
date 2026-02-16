@@ -11,6 +11,9 @@ type PriorityQueue []*pb.Task
 
 func (pq *PriorityQueue) Len() int { return len(*pq) }
 
+// Less returns true if task i has higher priority than task j.
+// Using > makes this a max-heap, so higher priority tasks (CRITICAL=4, HIGH=3)
+// are dequeued before lower priority tasks (NORMAL=2, LOW=1).
 func (pq *PriorityQueue) Less(i, j int) bool {
 	return (*pq)[i].Priority > (*pq)[j].Priority
 }

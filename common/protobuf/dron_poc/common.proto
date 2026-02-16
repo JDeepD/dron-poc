@@ -52,6 +52,7 @@ message Task {
 message CreateTaskRequest {
   string name = 1;
   Command command = 2;
+  Priority priority = 3;
 }
 
 // From Coordinator

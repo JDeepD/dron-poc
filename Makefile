@@ -42,8 +42,9 @@ run-worker:
 
 run-client:
 	@echo "==> Running client..."
-	@if [ -z "$(CMD)" ]; then \
-		echo "Usage: make run-client CMD='create -name <name> -command <command>'"; \
+	@if [ -z "$(ACTION)" ] || [ -z "$(NAME)" ] || [ -z "$(COMMAND)" ]; then \
+		echo "Usage: make run-client ACTION=<action> NAME=<name> COMMAND='<command>' [PRIORITY=<priority>]"; \
+		echo "  PRIORITY: low, normal (default), high, critical"; \
 		exit 1; \
 	fi
-	go run ./client/main.go $(CMD)
+	go run ./client/main.go $(ACTION) -name $(NAME) -command "$(COMMAND)" -priority $(or $(PRIORITY),normal)

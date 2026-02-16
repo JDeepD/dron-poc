@@ -23,6 +23,7 @@ func main() {
 	createCmd := flag.NewFlagSet("create", flag.ExitOnError)
 	createName := createCmd.String("name", "", "Name of the task")
 	createCommand := createCmd.String("command", "", "Command to execute")
+	createPriority := createCmd.String("priority", "normal", "Task priority: low, normal, high, critical")
 	createCoordinator := createCmd.String("coordinator", common.DefaultCoordinatorAddress, "Coordinator address")
 
 	if len(os.Args) < 2 {
@@ -36,7 +37,7 @@ func main() {
 		if *createName == "" || *createCommand == "" {
 			log.Fatal().Msg("Both -name and -command are required for create")
 		}
-		createTask(*createCoordinator, *createName, *createCommand)
+		createTask(*createCoordinator, *createName, *createCommand, *createPriority)
 	case "help":
 		printUsage()
 	default:
@@ -53,12 +54,29 @@ func printUsage() {
 	log.Info().Msg("  create   Create a new task")
 	log.Info().Msg("    -name        Name of the task")
 	log.Info().Msg("    -command     Command to execute")
+	log.Info().Msg("    -priority    Task priority: low, normal, high, critical (default: normal)")
 	log.Info().Msg("    -coordinator Coordinator address (default: 0.0.0.0:8000)")
 	log.Info().Msg("")
 	log.Info().Msg("  help     Show this help message")
 }
 
-func createTask(coordinatorAddr, name, command string) {
+func parsePriority(p string) pb.Priority {
+	switch p {
+	case "low":
+		return pb.Priority_PRIORITY_LOW
+	case "normal":
+		return pb.Priority_PRIORITY_NORMAL
+	case "high":
+		return pb.Priority_PRIORITY_HIGH
+	case "critical":
+		return pb.Priority_PRIORITY_CRITICAL
+	default:
+		log.Warn().Str("priority", p).Msg("Unknown priority, using normal")
+		return pb.Priority_PRIORITY_NORMAL
+	}
+}
+
+func createTask(coordinatorAddr, name, command, priority string) {
 	conn, err := grpc.NewClient(coordinatorAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatal().Err(err).Msg("Failed to connect to coordinator")
@@ -71,8 +89,9 @@ func createTask(coordinatorAddr, name, command string) {
 	defer cancel()
 
 	req := &pb.CreateTaskRequest{
-		Name:    name,
-		Command: &pb.Command{Value: command},
+		Name:     name,
+		Command:  &pb.Command{Value: command},
+		Priority: parsePriority(priority),
 	}
 
 	resp, err := client.CreateTask(ctx, req)
