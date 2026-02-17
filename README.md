@@ -23,3 +23,5 @@ make run-client ACTION=create NAME="my-task" COMMAND="echo hello" PRIORITY=criti
 
 Benchmarks ran on M2 Macbook Air (8/256 GB)
 <img width="1485" height="1050" alt="workers-bench" src="https://github.com/user-attachments/assets/b2458dab-ecee-4dec-a9e3-b07747de20c6" />
+<img width="1989" height="575" alt="task" src="https://github.com/user-attachments/assets/f895ebf3-536a-414a-97ab-9d9a854feaf3" />
+
