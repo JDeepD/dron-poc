@@ -75,7 +75,7 @@ func (c *Coordinator) CheckWorkerStatus(ctx context.Context) {
 							task.AssignedTo = nil
 							heap.Push(&c.taskQueue, task)
 							delete(c.runningTasks, taskId)
-							log.Info().Int32("task_id", taskId).Msg("Re-queued task from dead worker")
+							log.Debug().Int32("task_id", taskId).Msg("Re-queued task from dead worker")
 						}
 						worker.CurrentTask = nil
 					}
@@ -103,7 +103,7 @@ func (c *Coordinator) RegisterWorker(ctx context.Context, req *pb.RegisterWorker
 		CurrentTask:   nil,
 	}
 
-	log.Info().Int32("worker_id", workerID).Msgf("Worker %s registered successfully with ID %d", req.Name, workerID)
+	log.Debug().Int32("worker_id", workerID).Msgf("Worker %s registered successfully with ID %d", req.Name, workerID)
 
 	return &pb.RegisterWorkerResponse{
 		Success: true,
@@ -138,7 +138,7 @@ func (c *Coordinator) CreateTask(ctx context.Context, req *pb.CreateTaskRequest)
 	c.tasks[taskId] = task
 	heap.Push(&c.taskQueue, task)
 
-	log.Info().Int32("task_id", taskId).Str("name", req.Name).Msg("Task created successfully")
+	log.Debug().Int32("task_id", taskId).Str("name", req.Name).Msg("Task created successfully")
 
 	return &pb.CreateTaskResponse{
 		Id:      &pb.TaskId{Value: taskId},
@@ -183,7 +183,7 @@ func (c *Coordinator) AssignTask(ctx context.Context, req *pb.GetTaskRequest) (*
 	c.runningTasks[task.Id.Value] = task
 	worker.CurrentTask = task.Id
 
-	log.Info().Int32("task_id", task.Id.Value).Int32("worker_id", workerId).
+	log.Debug().Int32("task_id", task.Id.Value).Int32("worker_id", workerId).
 		Msgf("Task %s assigned to worker %s", task.Name, worker.Name)
 
 	return &pb.GetTaskResponse{
@@ -236,17 +236,78 @@ func (c *Coordinator) FinishTask(ctx context.Context, req *pb.FinishTaskRequest)
 		statusStr = "FAILURE"
 	}
 
-	log.Info().Int32("task_id", taskId).Int32("worker_id", workerId).
+	log.Debug().Int32("task_id", taskId).Int32("worker_id", workerId).
 		Str("status", statusStr).
 		Msgf("Task %s completed by worker %s with status %s", task.Name, worker.Name, statusStr)
 
 	if req.Output != nil && req.Output.Value != "" {
-		log.Info().Int32("task_id", taskId).Str("output", req.Output.Value).Msg("Task output")
+		log.Debug().Int32("task_id", taskId).Str("output", req.Output.Value).Msg("Task output")
 	}
 
 	return &pb.FinishTaskResponse{
 		Success: true,
 		Message: "Task completion recorded",
+	}, nil
+}
+
+func (c *Coordinator) GetTaskStatus(ctx context.Context, req *pb.GetTaskStatusRequest) (*pb.GetTaskStatusResponse, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	taskId := req.TaskId.Value
+
+	// Check in all task maps
+	if task, exists := c.tasks[taskId]; exists {
+		return &pb.GetTaskStatusResponse{
+			Task:    task,
+			Found:   true,
+			Message: "Task found",
+		}, nil
+	}
+
+	return &pb.GetTaskStatusResponse{
+		Task:    nil,
+		Found:   false,
+		Message: "Task not found",
+	}, nil
+}
+
+func (c *Coordinator) GetTaskStatusBatch(ctx context.Context, req *pb.GetTaskStatusBatchRequest) (*pb.GetTaskStatusBatchResponse, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	var (
+		tasks     []*pb.Task
+		pending   int32
+		running   int32
+		completed int32
+		failed    int32
+	)
+
+	for _, taskIdMsg := range req.TaskIds {
+		taskId := taskIdMsg.Value
+		if task, exists := c.tasks[taskId]; exists {
+			tasks = append(tasks, task)
+
+			switch task.Status {
+			case pb.Status_STATUS_PENDING:
+				pending++
+			case pb.Status_STATUS_RUNNING:
+				running++
+			case pb.Status_STATUS_SUCCESS:
+				completed++
+			case pb.Status_STATUS_FAILURE:
+				failed++
+			}
+		}
+	}
+
+	return &pb.GetTaskStatusBatchResponse{
+		Tasks:     tasks,
+		Pending:   pending,
+		Running:   running,
+		Completed: completed,
+		Failed:    failed,
 	}, nil
 }
 
@@ -265,7 +326,7 @@ func main() {
 	}
 	grpcServer := grpc.NewServer()
 	pb.RegisterCoordinatorServiceServer(grpcServer, coordinator)
-	log.Info().Msgf("Coordinator server is listening on %s", common.DefaultCoordinatorAddress)
+	log.Debug().Msgf("Coordinator server is listening on %s", common.DefaultCoordinatorAddress)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatal().Err(err).Msgf("Failed to serve coordinator server: %v", err)

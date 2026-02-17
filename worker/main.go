@@ -72,7 +72,7 @@ func (w *Worker) Register(ctx context.Context) error {
 	}
 
 	w.id = resp.Id.Value
-	log.Info().Int32("worker_id", w.id).Msgf("Worker %s registered successfully with ID %d", w.name, w.id)
+	log.Debug().Int32("worker_id", w.id).Msgf("Worker %s registered successfully with ID %d", w.name, w.id)
 	return nil
 }
 
@@ -85,7 +85,7 @@ func (w *Worker) Poll(ctx context.Context) {
 		case <-ticker.C:
 			w.getTask(ctx)
 		case <-ctx.Done():
-			log.Info().Msgf("Worker %s is shutting down", w.name)
+			log.Debug().Msgf("Worker %s is shutting down", w.name)
 			return
 		}
 	}
@@ -120,7 +120,7 @@ func (w *Worker) getTask(ctx context.Context) {
 	w.isBusy = true
 	w.mu.Unlock()
 
-	log.Info().Int32("task_id", resp.Task.Id.Value).
+	log.Debug().Int32("task_id", resp.Task.Id.Value).
 		Str("task_name", resp.Task.Name).
 		Msgf("Worker %s received task: %s", w.name, resp.Task.Name)
 
@@ -137,7 +137,7 @@ func (w *Worker) executeTask(ctx context.Context, task *pb.Task) {
 	}()
 
 	command := task.Command.Value
-	log.Info().Int32("task_id", task.Id.Value).
+	log.Debug().Int32("task_id", task.Id.Value).
 		Str("command", command).
 		Msgf("Executing task %s: %s", task.Name, command)
 
@@ -166,7 +166,7 @@ func (w *Worker) executeTask(ctx context.Context, task *pb.Task) {
 		return
 	}
 
-	log.Info().Int32("task_id", task.Id.Value).
+	log.Debug().Int32("task_id", task.Id.Value).
 		Str("output", outputStr).
 		Msgf("Task %s completed successfully", task.Name)
 	w.reportTaskCompletion(ctx, task.Id, pb.Status_STATUS_SUCCESS, outputStr)
@@ -194,7 +194,7 @@ func (w *Worker) reportTaskCompletion(ctx context.Context, taskId *pb.TaskId, st
 		return
 	}
 
-	log.Info().Int32("task_id", taskId.Value).Msg("Task completion reported to coordinator")
+	log.Debug().Int32("task_id", taskId.Value).Msg("Task completion reported to coordinator")
 }
 
 func main() {

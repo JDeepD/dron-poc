@@ -11,4 +11,6 @@ service CoordinatorService {
     rpc RegisterWorker(RegisterWorkerRequest) returns(RegisterWorkerResponse) {};
     rpc AssignTask(GetTaskRequest) returns (GetTaskResponse) {};
     rpc FinishTask(FinishTaskRequest) returns(FinishTaskResponse) {};
+    rpc GetTaskStatus(GetTaskStatusRequest) returns (GetTaskStatusResponse) {};
+    rpc GetTaskStatusBatch(GetTaskStatusBatchRequest) returns (GetTaskStatusBatchResponse) {};
 }

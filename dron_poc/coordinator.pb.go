@@ -24,7 +24,7 @@ var File_dron_poc_coordinator_proto protoreflect.FileDescriptor
 
 const file_dron_poc_coordinator_proto_rawDesc = "" +
 	"\n" +
-	"\x1adron_poc/coordinator.proto\x12\bdron_poc\x1a\x15dron_poc/common.proto2\xc6\x02\n" +
+	"\x1adron_poc/coordinator.proto\x12\bdron_poc\x1a\x15dron_poc/common.proto2\xfd\x03\n" +
 	"\x12CoordinatorService\x12I\n" +
 	"\n" +
 	"CreateTask\x12\x1b.dron_poc.CreateTaskRequest\x1a\x1c.dron_poc.CreateTaskResponse\"\x00\x12U\n" +
@@ -32,32 +32,42 @@ const file_dron_poc_coordinator_proto_rawDesc = "" +
 	"\n" +
 	"AssignTask\x12\x18.dron_poc.GetTaskRequest\x1a\x19.dron_poc.GetTaskResponse\"\x00\x12I\n" +
 	"\n" +
-	"FinishTask\x12\x1b.dron_poc.FinishTaskRequest\x1a\x1c.dron_poc.FinishTaskResponse\"\x00B\rZ\vdron-proto/b\x06proto3"
+	"FinishTask\x12\x1b.dron_poc.FinishTaskRequest\x1a\x1c.dron_poc.FinishTaskResponse\"\x00\x12R\n" +
+	"\rGetTaskStatus\x12\x1e.dron_poc.GetTaskStatusRequest\x1a\x1f.dron_poc.GetTaskStatusResponse\"\x00\x12a\n" +
+	"\x12GetTaskStatusBatch\x12#.dron_poc.GetTaskStatusBatchRequest\x1a$.dron_poc.GetTaskStatusBatchResponse\"\x00B\rZ\vdron-proto/b\x06proto3"
 
 var file_dron_poc_coordinator_proto_goTypes = []any{
-	(*CreateTaskRequest)(nil),      // 0: dron_poc.CreateTaskRequest
-	(*RegisterWorkerRequest)(nil),  // 1: dron_poc.RegisterWorkerRequest
-	(*GetTaskRequest)(nil),         // 2: dron_poc.GetTaskRequest
-	(*FinishTaskRequest)(nil),      // 3: dron_poc.FinishTaskRequest
-	(*CreateTaskResponse)(nil),     // 4: dron_poc.CreateTaskResponse
-	(*RegisterWorkerResponse)(nil), // 5: dron_poc.RegisterWorkerResponse
-	(*GetTaskResponse)(nil),        // 6: dron_poc.GetTaskResponse
-	(*FinishTaskResponse)(nil),     // 7: dron_poc.FinishTaskResponse
+	(*CreateTaskRequest)(nil),          // 0: dron_poc.CreateTaskRequest
+	(*RegisterWorkerRequest)(nil),      // 1: dron_poc.RegisterWorkerRequest
+	(*GetTaskRequest)(nil),             // 2: dron_poc.GetTaskRequest
+	(*FinishTaskRequest)(nil),          // 3: dron_poc.FinishTaskRequest
+	(*GetTaskStatusRequest)(nil),       // 4: dron_poc.GetTaskStatusRequest
+	(*GetTaskStatusBatchRequest)(nil),  // 5: dron_poc.GetTaskStatusBatchRequest
+	(*CreateTaskResponse)(nil),         // 6: dron_poc.CreateTaskResponse
+	(*RegisterWorkerResponse)(nil),     // 7: dron_poc.RegisterWorkerResponse
+	(*GetTaskResponse)(nil),            // 8: dron_poc.GetTaskResponse
+	(*FinishTaskResponse)(nil),         // 9: dron_poc.FinishTaskResponse
+	(*GetTaskStatusResponse)(nil),      // 10: dron_poc.GetTaskStatusResponse
+	(*GetTaskStatusBatchResponse)(nil), // 11: dron_poc.GetTaskStatusBatchResponse
 }
 var file_dron_poc_coordinator_proto_depIdxs = []int32{
-	0, // 0: dron_poc.CoordinatorService.CreateTask:input_type -> dron_poc.CreateTaskRequest
-	1, // 1: dron_poc.CoordinatorService.RegisterWorker:input_type -> dron_poc.RegisterWorkerRequest
-	2, // 2: dron_poc.CoordinatorService.AssignTask:input_type -> dron_poc.GetTaskRequest
-	3, // 3: dron_poc.CoordinatorService.FinishTask:input_type -> dron_poc.FinishTaskRequest
-	4, // 4: dron_poc.CoordinatorService.CreateTask:output_type -> dron_poc.CreateTaskResponse
-	5, // 5: dron_poc.CoordinatorService.RegisterWorker:output_type -> dron_poc.RegisterWorkerResponse
-	6, // 6: dron_poc.CoordinatorService.AssignTask:output_type -> dron_poc.GetTaskResponse
-	7, // 7: dron_poc.CoordinatorService.FinishTask:output_type -> dron_poc.FinishTaskResponse
-	4, // [4:8] is the sub-list for method output_type
-	0, // [0:4] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: dron_poc.CoordinatorService.CreateTask:input_type -> dron_poc.CreateTaskRequest
+	1,  // 1: dron_poc.CoordinatorService.RegisterWorker:input_type -> dron_poc.RegisterWorkerRequest
+	2,  // 2: dron_poc.CoordinatorService.AssignTask:input_type -> dron_poc.GetTaskRequest
+	3,  // 3: dron_poc.CoordinatorService.FinishTask:input_type -> dron_poc.FinishTaskRequest
+	4,  // 4: dron_poc.CoordinatorService.GetTaskStatus:input_type -> dron_poc.GetTaskStatusRequest
+	5,  // 5: dron_poc.CoordinatorService.GetTaskStatusBatch:input_type -> dron_poc.GetTaskStatusBatchRequest
+	6,  // 6: dron_poc.CoordinatorService.CreateTask:output_type -> dron_poc.CreateTaskResponse
+	7,  // 7: dron_poc.CoordinatorService.RegisterWorker:output_type -> dron_poc.RegisterWorkerResponse
+	8,  // 8: dron_poc.CoordinatorService.AssignTask:output_type -> dron_poc.GetTaskResponse
+	9,  // 9: dron_poc.CoordinatorService.FinishTask:output_type -> dron_poc.FinishTaskResponse
+	10, // 10: dron_poc.CoordinatorService.GetTaskStatus:output_type -> dron_poc.GetTaskStatusResponse
+	11, // 11: dron_poc.CoordinatorService.GetTaskStatusBatch:output_type -> dron_poc.GetTaskStatusBatchResponse
+	6,  // [6:12] is the sub-list for method output_type
+	0,  // [0:6] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_dron_poc_coordinator_proto_init() }

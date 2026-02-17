@@ -1007,6 +1007,232 @@ func (x *FinishTaskResponse) GetMessage() string {
 	return ""
 }
 
+// Get task status
+type GetTaskStatusRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TaskId        *TaskId                `protobuf:"bytes,1,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTaskStatusRequest) Reset() {
+	*x = GetTaskStatusRequest{}
+	mi := &file_dron_poc_common_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTaskStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTaskStatusRequest) ProtoMessage() {}
+
+func (x *GetTaskStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dron_poc_common_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTaskStatusRequest.ProtoReflect.Descriptor instead.
+func (*GetTaskStatusRequest) Descriptor() ([]byte, []int) {
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GetTaskStatusRequest) GetTaskId() *TaskId {
+	if x != nil {
+		return x.TaskId
+	}
+	return nil
+}
+
+type GetTaskStatusResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Task          *Task                  `protobuf:"bytes,1,opt,name=task,proto3" json:"task,omitempty"`
+	Found         bool                   `protobuf:"varint,2,opt,name=found,proto3" json:"found,omitempty"`
+	Message       string                 `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTaskStatusResponse) Reset() {
+	*x = GetTaskStatusResponse{}
+	mi := &file_dron_poc_common_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTaskStatusResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTaskStatusResponse) ProtoMessage() {}
+
+func (x *GetTaskStatusResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dron_poc_common_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTaskStatusResponse.ProtoReflect.Descriptor instead.
+func (*GetTaskStatusResponse) Descriptor() ([]byte, []int) {
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GetTaskStatusResponse) GetTask() *Task {
+	if x != nil {
+		return x.Task
+	}
+	return nil
+}
+
+func (x *GetTaskStatusResponse) GetFound() bool {
+	if x != nil {
+		return x.Found
+	}
+	return false
+}
+
+func (x *GetTaskStatusResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+// Get multiple task statuses (for batch queries)
+type GetTaskStatusBatchRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TaskIds       []*TaskId              `protobuf:"bytes,1,rep,name=task_ids,json=taskIds,proto3" json:"task_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTaskStatusBatchRequest) Reset() {
+	*x = GetTaskStatusBatchRequest{}
+	mi := &file_dron_poc_common_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTaskStatusBatchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTaskStatusBatchRequest) ProtoMessage() {}
+
+func (x *GetTaskStatusBatchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dron_poc_common_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTaskStatusBatchRequest.ProtoReflect.Descriptor instead.
+func (*GetTaskStatusBatchRequest) Descriptor() ([]byte, []int) {
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *GetTaskStatusBatchRequest) GetTaskIds() []*TaskId {
+	if x != nil {
+		return x.TaskIds
+	}
+	return nil
+}
+
+type GetTaskStatusBatchResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Tasks         []*Task                `protobuf:"bytes,1,rep,name=tasks,proto3" json:"tasks,omitempty"`
+	Pending       int32                  `protobuf:"varint,2,opt,name=pending,proto3" json:"pending,omitempty"`
+	Running       int32                  `protobuf:"varint,3,opt,name=running,proto3" json:"running,omitempty"`
+	Completed     int32                  `protobuf:"varint,4,opt,name=completed,proto3" json:"completed,omitempty"`
+	Failed        int32                  `protobuf:"varint,5,opt,name=failed,proto3" json:"failed,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTaskStatusBatchResponse) Reset() {
+	*x = GetTaskStatusBatchResponse{}
+	mi := &file_dron_poc_common_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTaskStatusBatchResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTaskStatusBatchResponse) ProtoMessage() {}
+
+func (x *GetTaskStatusBatchResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dron_poc_common_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTaskStatusBatchResponse.ProtoReflect.Descriptor instead.
+func (*GetTaskStatusBatchResponse) Descriptor() ([]byte, []int) {
+	return file_dron_poc_common_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetTaskStatusBatchResponse) GetTasks() []*Task {
+	if x != nil {
+		return x.Tasks
+	}
+	return nil
+}
+
+func (x *GetTaskStatusBatchResponse) GetPending() int32 {
+	if x != nil {
+		return x.Pending
+	}
+	return 0
+}
+
+func (x *GetTaskStatusBatchResponse) GetRunning() int32 {
+	if x != nil {
+		return x.Running
+	}
+	return 0
+}
+
+func (x *GetTaskStatusBatchResponse) GetCompleted() int32 {
+	if x != nil {
+		return x.Completed
+	}
+	return 0
+}
+
+func (x *GetTaskStatusBatchResponse) GetFailed() int32 {
+	if x != nil {
+		return x.Failed
+	}
+	return 0
+}
+
 var File_dron_poc_common_proto protoreflect.FileDescriptor
 
 const file_dron_poc_common_proto_rawDesc = "" +
@@ -1070,7 +1296,21 @@ const file_dron_poc_common_proto_rawDesc = "" +
 	"\x06output\x18\x04 \x01(\v2\x14.dron_poc.TaskOutputR\x06output\"H\n" +
 	"\x12FinishTaskResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage*p\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"A\n" +
+	"\x14GetTaskStatusRequest\x12)\n" +
+	"\atask_id\x18\x01 \x01(\v2\x10.dron_poc.TaskIdR\x06taskId\"k\n" +
+	"\x15GetTaskStatusResponse\x12\"\n" +
+	"\x04task\x18\x01 \x01(\v2\x0e.dron_poc.TaskR\x04task\x12\x14\n" +
+	"\x05found\x18\x02 \x01(\bR\x05found\x12\x18\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\"H\n" +
+	"\x19GetTaskStatusBatchRequest\x12+\n" +
+	"\btask_ids\x18\x01 \x03(\v2\x10.dron_poc.TaskIdR\ataskIds\"\xac\x01\n" +
+	"\x1aGetTaskStatusBatchResponse\x12$\n" +
+	"\x05tasks\x18\x01 \x03(\v2\x0e.dron_poc.TaskR\x05tasks\x12\x18\n" +
+	"\apending\x18\x02 \x01(\x05R\apending\x12\x18\n" +
+	"\arunning\x18\x03 \x01(\x05R\arunning\x12\x1c\n" +
+	"\tcompleted\x18\x04 \x01(\x05R\tcompleted\x12\x16\n" +
+	"\x06failed\x18\x05 \x01(\x05R\x06failed*p\n" +
 	"\x06Status\x12\x16\n" +
 	"\x12STATUS_UNSPECIFIED\x10\x00\x12\x12\n" +
 	"\x0eSTATUS_PENDING\x10\x01\x12\x12\n" +
@@ -1097,39 +1337,43 @@ func file_dron_poc_common_proto_rawDescGZIP() []byte {
 }
 
 var file_dron_poc_common_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_dron_poc_common_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_dron_poc_common_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_dron_poc_common_proto_goTypes = []any{
-	(Status)(0),                    // 0: dron_poc.Status
-	(Priority)(0),                  // 1: dron_poc.Priority
-	(*TaskId)(nil),                 // 2: dron_poc.TaskId
-	(*WorkerID)(nil),               // 3: dron_poc.WorkerID
-	(*Command)(nil),                // 4: dron_poc.Command
-	(*Address)(nil),                // 5: dron_poc.Address
-	(*TaskOutput)(nil),             // 6: dron_poc.TaskOutput
-	(*Worker)(nil),                 // 7: dron_poc.Worker
-	(*Task)(nil),                   // 8: dron_poc.Task
-	(*CreateTaskRequest)(nil),      // 9: dron_poc.CreateTaskRequest
-	(*CreateTaskResponse)(nil),     // 10: dron_poc.CreateTaskResponse
-	(*RegisterWorkerRequest)(nil),  // 11: dron_poc.RegisterWorkerRequest
-	(*RegisterWorkerResponse)(nil), // 12: dron_poc.RegisterWorkerResponse
-	(*GetTaskRequest)(nil),         // 13: dron_poc.GetTaskRequest
-	(*GetTaskResponse)(nil),        // 14: dron_poc.GetTaskResponse
-	(*FinishTaskRequest)(nil),      // 15: dron_poc.FinishTaskRequest
-	(*FinishTaskResponse)(nil),     // 16: dron_poc.FinishTaskResponse
-	(*timestamppb.Timestamp)(nil),  // 17: google.protobuf.Timestamp
+	(Status)(0),                        // 0: dron_poc.Status
+	(Priority)(0),                      // 1: dron_poc.Priority
+	(*TaskId)(nil),                     // 2: dron_poc.TaskId
+	(*WorkerID)(nil),                   // 3: dron_poc.WorkerID
+	(*Command)(nil),                    // 4: dron_poc.Command
+	(*Address)(nil),                    // 5: dron_poc.Address
+	(*TaskOutput)(nil),                 // 6: dron_poc.TaskOutput
+	(*Worker)(nil),                     // 7: dron_poc.Worker
+	(*Task)(nil),                       // 8: dron_poc.Task
+	(*CreateTaskRequest)(nil),          // 9: dron_poc.CreateTaskRequest
+	(*CreateTaskResponse)(nil),         // 10: dron_poc.CreateTaskResponse
+	(*RegisterWorkerRequest)(nil),      // 11: dron_poc.RegisterWorkerRequest
+	(*RegisterWorkerResponse)(nil),     // 12: dron_poc.RegisterWorkerResponse
+	(*GetTaskRequest)(nil),             // 13: dron_poc.GetTaskRequest
+	(*GetTaskResponse)(nil),            // 14: dron_poc.GetTaskResponse
+	(*FinishTaskRequest)(nil),          // 15: dron_poc.FinishTaskRequest
+	(*FinishTaskResponse)(nil),         // 16: dron_poc.FinishTaskResponse
+	(*GetTaskStatusRequest)(nil),       // 17: dron_poc.GetTaskStatusRequest
+	(*GetTaskStatusResponse)(nil),      // 18: dron_poc.GetTaskStatusResponse
+	(*GetTaskStatusBatchRequest)(nil),  // 19: dron_poc.GetTaskStatusBatchRequest
+	(*GetTaskStatusBatchResponse)(nil), // 20: dron_poc.GetTaskStatusBatchResponse
+	(*timestamppb.Timestamp)(nil),      // 21: google.protobuf.Timestamp
 }
 var file_dron_poc_common_proto_depIdxs = []int32{
 	3,  // 0: dron_poc.Worker.id:type_name -> dron_poc.WorkerID
 	5,  // 1: dron_poc.Worker.address:type_name -> dron_poc.Address
 	2,  // 2: dron_poc.Worker.current_task:type_name -> dron_poc.TaskId
-	17, // 3: dron_poc.Worker.last_heartbeat:type_name -> google.protobuf.Timestamp
+	21, // 3: dron_poc.Worker.last_heartbeat:type_name -> google.protobuf.Timestamp
 	2,  // 4: dron_poc.Task.id:type_name -> dron_poc.TaskId
 	4,  // 5: dron_poc.Task.command:type_name -> dron_poc.Command
 	0,  // 6: dron_poc.Task.status:type_name -> dron_poc.Status
 	2,  // 7: dron_poc.Task.assigned_to:type_name -> dron_poc.TaskId
-	17, // 8: dron_poc.Task.submitted_at:type_name -> google.protobuf.Timestamp
-	17, // 9: dron_poc.Task.started_at:type_name -> google.protobuf.Timestamp
-	17, // 10: dron_poc.Task.completed_at:type_name -> google.protobuf.Timestamp
+	21, // 8: dron_poc.Task.submitted_at:type_name -> google.protobuf.Timestamp
+	21, // 9: dron_poc.Task.started_at:type_name -> google.protobuf.Timestamp
+	21, // 10: dron_poc.Task.completed_at:type_name -> google.protobuf.Timestamp
 	1,  // 11: dron_poc.Task.priority:type_name -> dron_poc.Priority
 	4,  // 12: dron_poc.CreateTaskRequest.command:type_name -> dron_poc.Command
 	1,  // 13: dron_poc.CreateTaskRequest.priority:type_name -> dron_poc.Priority
@@ -1142,11 +1386,15 @@ var file_dron_poc_common_proto_depIdxs = []int32{
 	2,  // 20: dron_poc.FinishTaskRequest.task_id:type_name -> dron_poc.TaskId
 	0,  // 21: dron_poc.FinishTaskRequest.status:type_name -> dron_poc.Status
 	6,  // 22: dron_poc.FinishTaskRequest.output:type_name -> dron_poc.TaskOutput
-	23, // [23:23] is the sub-list for method output_type
-	23, // [23:23] is the sub-list for method input_type
-	23, // [23:23] is the sub-list for extension type_name
-	23, // [23:23] is the sub-list for extension extendee
-	0,  // [0:23] is the sub-list for field type_name
+	2,  // 23: dron_poc.GetTaskStatusRequest.task_id:type_name -> dron_poc.TaskId
+	8,  // 24: dron_poc.GetTaskStatusResponse.task:type_name -> dron_poc.Task
+	2,  // 25: dron_poc.GetTaskStatusBatchRequest.task_ids:type_name -> dron_poc.TaskId
+	8,  // 26: dron_poc.GetTaskStatusBatchResponse.tasks:type_name -> dron_poc.Task
+	27, // [27:27] is the sub-list for method output_type
+	27, // [27:27] is the sub-list for method input_type
+	27, // [27:27] is the sub-list for extension type_name
+	27, // [27:27] is the sub-list for extension extendee
+	0,  // [0:27] is the sub-list for field type_name
 }
 
 func init() { file_dron_poc_common_proto_init() }
@@ -1160,7 +1408,7 @@ func file_dron_poc_common_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_dron_poc_common_proto_rawDesc), len(file_dron_poc_common_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   15,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

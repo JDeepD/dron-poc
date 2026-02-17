@@ -19,10 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	CoordinatorService_CreateTask_FullMethodName     = "/dron_poc.CoordinatorService/CreateTask"
-	CoordinatorService_RegisterWorker_FullMethodName = "/dron_poc.CoordinatorService/RegisterWorker"
-	CoordinatorService_AssignTask_FullMethodName     = "/dron_poc.CoordinatorService/AssignTask"
-	CoordinatorService_FinishTask_FullMethodName     = "/dron_poc.CoordinatorService/FinishTask"
+	CoordinatorService_CreateTask_FullMethodName         = "/dron_poc.CoordinatorService/CreateTask"
+	CoordinatorService_RegisterWorker_FullMethodName     = "/dron_poc.CoordinatorService/RegisterWorker"
+	CoordinatorService_AssignTask_FullMethodName         = "/dron_poc.CoordinatorService/AssignTask"
+	CoordinatorService_FinishTask_FullMethodName         = "/dron_poc.CoordinatorService/FinishTask"
+	CoordinatorService_GetTaskStatus_FullMethodName      = "/dron_poc.CoordinatorService/GetTaskStatus"
+	CoordinatorService_GetTaskStatusBatch_FullMethodName = "/dron_poc.CoordinatorService/GetTaskStatusBatch"
 )
 
 // CoordinatorServiceClient is the client API for CoordinatorService service.
@@ -33,6 +35,8 @@ type CoordinatorServiceClient interface {
 	RegisterWorker(ctx context.Context, in *RegisterWorkerRequest, opts ...grpc.CallOption) (*RegisterWorkerResponse, error)
 	AssignTask(ctx context.Context, in *GetTaskRequest, opts ...grpc.CallOption) (*GetTaskResponse, error)
 	FinishTask(ctx context.Context, in *FinishTaskRequest, opts ...grpc.CallOption) (*FinishTaskResponse, error)
+	GetTaskStatus(ctx context.Context, in *GetTaskStatusRequest, opts ...grpc.CallOption) (*GetTaskStatusResponse, error)
+	GetTaskStatusBatch(ctx context.Context, in *GetTaskStatusBatchRequest, opts ...grpc.CallOption) (*GetTaskStatusBatchResponse, error)
 }
 
 type coordinatorServiceClient struct {
@@ -83,6 +87,26 @@ func (c *coordinatorServiceClient) FinishTask(ctx context.Context, in *FinishTas
 	return out, nil
 }
 
+func (c *coordinatorServiceClient) GetTaskStatus(ctx context.Context, in *GetTaskStatusRequest, opts ...grpc.CallOption) (*GetTaskStatusResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTaskStatusResponse)
+	err := c.cc.Invoke(ctx, CoordinatorService_GetTaskStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coordinatorServiceClient) GetTaskStatusBatch(ctx context.Context, in *GetTaskStatusBatchRequest, opts ...grpc.CallOption) (*GetTaskStatusBatchResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTaskStatusBatchResponse)
+	err := c.cc.Invoke(ctx, CoordinatorService_GetTaskStatusBatch_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoordinatorServiceServer is the server API for CoordinatorService service.
 // All implementations must embed UnimplementedCoordinatorServiceServer
 // for forward compatibility
@@ -91,6 +115,8 @@ type CoordinatorServiceServer interface {
 	RegisterWorker(context.Context, *RegisterWorkerRequest) (*RegisterWorkerResponse, error)
 	AssignTask(context.Context, *GetTaskRequest) (*GetTaskResponse, error)
 	FinishTask(context.Context, *FinishTaskRequest) (*FinishTaskResponse, error)
+	GetTaskStatus(context.Context, *GetTaskStatusRequest) (*GetTaskStatusResponse, error)
+	GetTaskStatusBatch(context.Context, *GetTaskStatusBatchRequest) (*GetTaskStatusBatchResponse, error)
 	mustEmbedUnimplementedCoordinatorServiceServer()
 }
 
@@ -109,6 +135,12 @@ func (UnimplementedCoordinatorServiceServer) AssignTask(context.Context, *GetTas
 }
 func (UnimplementedCoordinatorServiceServer) FinishTask(context.Context, *FinishTaskRequest) (*FinishTaskResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishTask not implemented")
+}
+func (UnimplementedCoordinatorServiceServer) GetTaskStatus(context.Context, *GetTaskStatusRequest) (*GetTaskStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTaskStatus not implemented")
+}
+func (UnimplementedCoordinatorServiceServer) GetTaskStatusBatch(context.Context, *GetTaskStatusBatchRequest) (*GetTaskStatusBatchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTaskStatusBatch not implemented")
 }
 func (UnimplementedCoordinatorServiceServer) mustEmbedUnimplementedCoordinatorServiceServer() {}
 
@@ -195,6 +227,42 @@ func _CoordinatorService_FinishTask_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CoordinatorService_GetTaskStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTaskStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoordinatorServiceServer).GetTaskStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CoordinatorService_GetTaskStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoordinatorServiceServer).GetTaskStatus(ctx, req.(*GetTaskStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoordinatorService_GetTaskStatusBatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTaskStatusBatchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoordinatorServiceServer).GetTaskStatusBatch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CoordinatorService_GetTaskStatusBatch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoordinatorServiceServer).GetTaskStatusBatch(ctx, req.(*GetTaskStatusBatchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CoordinatorService_ServiceDesc is the grpc.ServiceDesc for CoordinatorService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -217,6 +285,14 @@ var CoordinatorService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FinishTask",
 			Handler:    _CoordinatorService_FinishTask_Handler,
+		},
+		{
+			MethodName: "GetTaskStatus",
+			Handler:    _CoordinatorService_GetTaskStatus_Handler,
+		},
+		{
+			MethodName: "GetTaskStatusBatch",
+			Handler:    _CoordinatorService_GetTaskStatusBatch_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

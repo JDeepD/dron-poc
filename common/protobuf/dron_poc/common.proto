@@ -99,3 +99,27 @@ message FinishTaskResponse{
   bool success = 1;
   string message = 2;
 }
+
+// Get task status
+message GetTaskStatusRequest {
+  TaskId task_id = 1;
+}
+
+message GetTaskStatusResponse {
+  Task task = 1;
+  bool found = 2;
+  string message = 3;
+}
+
+// Get multiple task statuses (for batch queries)
+message GetTaskStatusBatchRequest {
+  repeated TaskId task_ids = 1;
+}
+
+message GetTaskStatusBatchResponse {
+  repeated Task tasks = 1;
+  int32 pending = 2;
+  int32 running = 3;
+  int32 completed = 4;
+  int32 failed = 5;
+}
