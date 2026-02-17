@@ -21,4 +21,4 @@ make run-client ACTION=create NAME="my-task" COMMAND="echo hello" PRIORITY=criti
 
 # Benchmarks
 
-<img width="984" height="590" alt="e2e-latency" src="https://github.com/user-attachments/assets/4861f8d0-c5a5-48ca-8712-8147e6adba95" />
+<img width="1485" height="1050" alt="workers-bench" src="https://github.com/user-attachments/assets/b2458dab-ecee-4dec-a9e3-b07747de20c6" />
